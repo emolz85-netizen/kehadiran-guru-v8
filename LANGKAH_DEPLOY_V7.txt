@@ -1,0 +1,53 @@
+SISTEM KEHADIRAN GURU V7 — DEPLOY KE RENDER
+============================================
+
+PERUBAHAN UTAMA V7
+------------------
+1. Migrasi dan penciptaan akaun dibuat dalam start.sh setiap kali servis bermula.
+2. Tidak bergantung pada Build Logs atau Render Shell.
+3. Akaun sedia ada tidak ditetapkan semula kata laluannya.
+4. Health check tersedia pada /health/.
+5. Nama Web Service: kehadiran-guru-v7
+6. Nama PostgreSQL: kehadiran-guru-v7-db
+
+LANGKAH GITHUB
+--------------
+1. Cipta repository baharu, contohnya kehadiran-guru-v7.
+2. Ekstrak ZIP V7.
+3. Muat naik semua kandungan folder V7 ke repository.
+4. Commit changes.
+
+LANGKAH RENDER
+--------------
+1. New > Blueprint.
+2. Sambungkan repository kehadiran-guru-v7.
+3. Render akan membaca render.yaml.
+4. Isi Environment Variables rahsia apabila diminta:
+
+INITIAL_ADMIN_USERNAME = admin
+INITIAL_ADMIN_PASSWORD = kata laluan pentadbir yang kuat
+INITIAL_ADMIN_EMAIL = e-mel pentadbir
+
+INITIAL_TEACHER_USERNAME = guru
+INITIAL_TEACHER_PASSWORD = kata laluan awal guru
+INITIAL_TEACHER_EMAIL = e-mel guru demo
+
+5. Deploy Blueprint.
+6. Tunggu Web Service menjadi Live.
+7. Buka URL https://kehadiran-guru-v7.onrender.com
+8. Log masuk menggunakan nilai INITIAL_ADMIN_USERNAME dan INITIAL_ADMIN_PASSWORD.
+
+SEMAKAN
+-------
+Buka:
+  https://kehadiran-guru-v7.onrender.com/health/
+
+Keputusan yang betul:
+  {"status":"ok","database":"connected","version":"7.0"}
+
+PENTING
+-------
+- Jangan masukkan kata laluan ke GitHub.
+- Simpan kata laluan hanya dalam Render Environment.
+- start.sh tidak menukar kata laluan jika akaun sudah wujud.
+- Kamera dan GPS memerlukan HTTPS serta kebenaran pelayar.

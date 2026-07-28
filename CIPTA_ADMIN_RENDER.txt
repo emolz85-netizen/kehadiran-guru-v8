@@ -1,0 +1,13 @@
+Selepas deploy berjaya, buka Render Dashboard:
+Service > Shell
+
+Jalankan:
+python manage.py createsuperuser
+
+Atau tetapkan Environment Variables:
+ADMIN_USERNAME
+ADMIN_PASSWORD
+ADMIN_EMAIL
+
+Kemudian jalankan:
+python manage.py create_admin_from_env

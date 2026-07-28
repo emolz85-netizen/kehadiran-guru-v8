@@ -1,0 +1,85 @@
+SISTEM KEHADIRAN GURU V8 — DEPLOY RENDER YANG DIPERMUDAHKAN
+============================================================
+
+V8 TIDAK:
+- mencipta PostgreSQL baharu;
+- menggunakan Render Shell;
+- bergantung pada fail start.sh semasa deploy;
+- memerlukan pelan Render berbayar.
+
+V8 MENGGUNAKAN:
+- database lama kehadiran-guru-db;
+- satu Web Service baharu bernama kehadiran-guru-v8;
+- arahan migrate dan create_initial_users terus dalam Start Command.
+
+LANGKAH 1 — GITHUB
+------------------
+1. Cipta repository baharu:
+   kehadiran-guru-v8
+2. Ekstrak ZIP ini.
+3. Muat naik SEMUA fail dan folder di dalam projek.
+4. Commit changes.
+
+LANGKAH 2 — SALIN DATABASE URL
+------------------------------
+1. Render Dashboard > kehadiran-guru-db.
+2. Info > Connections.
+3. Salin Internal Database URL.
+4. Jangan kongsi URL tersebut.
+
+LANGKAH 3 — NEW BLUEPRINT
+-------------------------
+1. Render > New > Blueprint.
+2. Sambungkan repository kehadiran-guru-v8.
+3. Isi:
+
+DATABASE_URL
+  Tampal Internal Database URL.
+
+INITIAL_ADMIN_USERNAME
+  admin
+
+INITIAL_ADMIN_PASSWORD
+  Kata laluan pentadbir yang kuat.
+
+INITIAL_ADMIN_EMAIL
+  E-mel pentadbir.
+
+INITIAL_TEACHER_USERNAME
+  guru
+
+INITIAL_TEACHER_PASSWORD
+  Kata laluan awal guru.
+
+INITIAL_TEACHER_EMAIL
+  E-mel guru demo.
+
+4. Klik Deploy Blueprint.
+5. Blueprint V8 hanya akan mencipta Web Service, bukan database.
+
+SEMAKAN BERJAYA
+---------------
+Selepas status Live, buka:
+  https://kehadiran-guru-v8.onrender.com/health/
+
+Paparan sepatutnya:
+  {"status":"ok","database":"connected","version":"8.0"}
+
+Kemudian buka:
+  https://kehadiran-guru-v8.onrender.com/
+
+Log masuk menggunakan nilai INITIAL_ADMIN_USERNAME dan
+INITIAL_ADMIN_PASSWORD.
+
+JIKA DEPLOY GAGAL
+-----------------
+1. Buka Web Service > Events.
+2. Klik deploy failed yang terkini.
+3. Klik pautan commit/deploy untuk melihat Build Logs.
+4. Ambil gambar 20 baris terakhir yang memaparkan ERROR.
+
+KESELAMATAN
+-----------
+- Jangan masukkan kata laluan atau DATABASE_URL ke GitHub.
+- Simpan semuanya dalam Render Environment.
+- Akaun sedia ada tidak ditetapkan semula kata laluannya.

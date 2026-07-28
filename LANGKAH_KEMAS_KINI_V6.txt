@@ -1,0 +1,53 @@
+KEMAS KINI SISTEM KEHADIRAN GURU KE VERSI 6.0
+==============================================
+
+CIRI BAHARU
+-----------
+1. Akaun pentadbir dicipta secara automatik semasa deploy.
+2. Akaun guru demo dicipta secara automatik semasa deploy.
+3. Import akaun guru melalui fail Excel.
+4. Templat SENARAI_GURU_TEMPLATE.xlsx disediakan.
+5. PostgreSQL, HTTPS, GPS, kamera, QR, PDF, Excel dan PWA dikekalkan.
+6. Paparan versi ditukar kepada v6.0.
+
+UNTUK REPOSITORY RENDER YANG SUDAH LIVE
+---------------------------------------
+1. Muat naik/replace semua fail V6 ke repository GitHub yang sama.
+2. Dalam Render > Environment, tambah:
+
+INITIAL_ADMIN_USERNAME = admin
+INITIAL_ADMIN_PASSWORD = kata laluan pentadbir yang kuat
+INITIAL_ADMIN_EMAIL = e-mel pentadbir
+INITIAL_ADMIN_NAME = Pentadbir Sekolah
+
+INITIAL_TEACHER_USERNAME = guru
+INITIAL_TEACHER_PASSWORD = kata laluan awal guru
+INITIAL_TEACHER_EMAIL = e-mel guru demo
+INITIAL_TEACHER_NAME = Guru Demo
+
+3. Simpan Environment Variables.
+4. Pastikan build.sh mengandungi:
+   python manage.py create_initial_users
+5. Commit perubahan GitHub.
+6. Render akan deploy semula secara automatik.
+7. Tunggu status Live.
+8. Log masuk menggunakan akaun yang ditetapkan.
+
+PENTING
+-------
+- Kata laluan tidak perlu dimasukkan ke GitHub.
+- Simpan kata laluan hanya dalam Render Environment.
+- Perintah create_initial_users akan mengemas kini kata laluan pengguna awal
+  setiap kali deploy. Selepas sistem stabil, anda boleh membuang baris
+  python manage.py create_initial_users daripada build.sh supaya kata laluan
+  yang ditukar melalui admin tidak ditetapkan semula pada deploy berikutnya.
+
+IMPORT GURU
+-----------
+1. Log masuk sebagai pentadbir.
+2. Buka menu Import Guru.
+3. Isi SENARAI_GURU_TEMPLATE.xlsx.
+4. Muat naik fail tersebut.
+5. Tetapkan kata laluan awal.
+6. Akaun baharu akan dicipta. Akaun sedia ada akan dikemas kini tanpa
+   menukar kata laluan sedia ada.
